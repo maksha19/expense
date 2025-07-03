@@ -4,11 +4,62 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="description" content="A beautiful and intuitive expense tracking application with offline support" />
+    <meta name="keywords" content="expense tracker, budget, finance, money management, PWA" />
+    
+    <!-- Apple PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Expense Tracker" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/expense/icons/icon-192x192.png" />
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/expense/manifest.json" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/expense/icons/icon-192x192.png" as="image" />
+    
     <title>Beautiful Expense Tracker Application</title>
-    <script type="module" crossorigin src="/expense/assets/index-DbNbwJXW.js"></script>
-    <link rel="stylesheet" crossorigin href="/expense/assets/index-C44rEZ5R.css">
+    <script type="module" crossorigin src="/expense/assets/index-DWdEKZgG.js"></script>
+    <link rel="stylesheet" crossorigin href="/expense/assets/index-z1qM5NiN.css">
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- PWA Registration Script -->
+    <script>
+      // Register service worker
+      // if ('serviceWorker' in navigator) {
+      //   window.addEventListener('load', () => {
+      //     navigator.serviceWorker.register('/sw.js')
+      //       .then((registration) => {
+      //         console.log('SW registered: ', registration);
+      //       })
+      //       .catch((registrationError) => {
+      //         console.log('SW registration failed: ', registrationError);
+      //       });
+      //   });
+      // }
+      
+      // Handle URL parameters for shortcuts
+      const urlParams = new URLSearchParams(window.location.search);
+      const action = urlParams.get('action');
+      
+      if (action) {
+        // Store the action to be handled by the React app
+        sessionStorage.setItem('pwa-action', action);
+        
+        // Clean up the URL
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+    </script>
   </body>
 </html>
